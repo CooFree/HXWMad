@@ -1,0 +1,5 @@
+platform:ios,'7.0'
+pod 'MJRefresh'
+pod 'AFNetworking', '~> 3.0'
+pod 'Masonry'
+pod 'SDWebImage', '~>3.7'
