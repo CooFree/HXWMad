@@ -52,29 +52,72 @@ NSString* StringFromDate(NSDate* aDate, NSString *aFormat) {
 }
 
 
-UIImage* image(NSString *imageName){
+UIImage* Image(NSString *imageName){
     return [UIImage imageNamed:imageName];
+    
 }
 
-NSString *cachePath(NSString *filePath){
+NSString *CachePath(NSString *filePath){
     NSString *cachePath =[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *string = [cachePath stringByAppendingPathComponent:filePath];
-    NSLog(@"%@",string);
-    if (![fileManager fileExistsAtPath:string]) {
-        if (![fileManager createDirectoryAtPath:string withIntermediateDirectories:YES attributes:nil error:nil]) {
-            NSLog(@"create filepath fail:%@", string);
+    NSString *path = [cachePath stringByAppendingPathComponent:filePath];
+    if (![fileManager fileExistsAtPath:path]) {
+        if (![fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil]) {
+            HXWLog(@"create filepath fail:%@", path);
         }
     }
-    return string;
+    return path;
 }
 
-NSString* resourcePath(NSString *filePath)
+NSString* ConfigPath(NSString* fileName) {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"dataCaches"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:path]){
+        if (![fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil]) {
+            HXWLog(@"create filepath fail:%@", path);
+            return nil;
+        }
+    }
+    return path;
+}
+
+//检查文件是否存在：此是ExistAtConfigPath和ExistAtTemporaryPath的综合
+BOOL ExistAtPath(NSString* fileFullPath) {
+    return [[fileFullPath pathExtension] length] > 0 &&
+    [[NSFileManager defaultManager] fileExistsAtPath:fileFullPath];
+}
+
+//删除所有catch文件
+void RemoveCacheFiels(void) {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    NSError* error = nil;
+    [manager removeItemAtPath:CachePath(nil) error:&error];
+}
+
+
+//删除文件
+BOOL RemoveFile(NSString* fileName) {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    NSError* error = nil;
+    return [manager removeItemAtPath:fileName error:&error];
+}
+
+//存储文件
+void SaveFile(NSString* fileName, NSData* data) {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    [manager createFileAtPath:fileName contents:data attributes:nil];
+}
+
+NSString* ResourcePath(NSString *filePath)
 {
     return [[[NSBundle mainBundle] resourcePath] stringByAppendingFormat:@"/%@",filePath];
 }
 
-UIImage * thumbnailWithImage(UIImage *image,CGSize asize)
+UIImage * ThumbnailWithImage(UIImage *image,CGSize asize)
 {
     UIImage *newimage;
     if (nil == image) {
@@ -95,7 +138,7 @@ UIImage * thumbnailWithImage(UIImage *image,CGSize asize)
     return newimage;
 }
 
-UIImage * thumbnailWithImageSameScale(UIImage *image,CGSize asize)
+UIImage * ThumbnailWithImageSameScale(UIImage *image,CGSize asize)
 {
     UIImage *newimage;
     if (nil == image) {

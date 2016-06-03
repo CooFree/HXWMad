@@ -144,7 +144,7 @@ UIScrollViewDelegate
     for (int i = 0; i < 3; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:scrollFrame];
         imageView.userInteractionEnabled = YES;
-        imageView.image = image([curImages objectAtIndex:i]);
+        imageView.image = Image([curImages objectAtIndex:i]);
         
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                     action:@selector(handleTap:)];

@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view.
     
     UIImageView *imageView = [[UIImageView alloc]init];
-    imageView.image = image([cachePath(@"picChche") stringByAppendingPathComponent:@"pic1"]);
+    imageView.image = Image([CachePath(@"picChche") stringByAppendingPathComponent:@"pic1"]);
     [self.view addSubview:imageView];
 //    UILabel *lbl = [self createLblWithText:@"私信" Multi:NO];
 //    lbl.frame = self.view.bounds;

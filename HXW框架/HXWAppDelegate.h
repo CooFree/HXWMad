@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HXWWindow.h"
 
 @interface HXWAppDelegate : UIResponder <UIApplicationDelegate>
-@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) HXWWindow *window;
 
 @end

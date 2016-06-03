@@ -43,8 +43,8 @@ CGFloat contentFontSize = normalFont;
     
     headerImg = [[UIImageView alloc]init];
     commentBtn = [[UIButton alloc]init];
-    [commentBtn setImage:image(@"navigationbar_more") forState:UIControlStateNormal];
-    [commentBtn setImage:image(@"navigationbar_more_highlighted") forState:UIControlStateHighlighted];
+    [commentBtn setImage:Image(@"navigationbar_more") forState:UIControlStateNormal];
+    [commentBtn setImage:Image(@"navigationbar_more_highlighted") forState:UIControlStateHighlighted];
     moreBtn = [[UIButton alloc]init];
     [moreBtn setTitle:@"全文" forState:UIControlStateNormal];
     [moreBtn setTitleColor:HXWColor(92, 140, 193) forState:UIControlStateNormal];
@@ -117,7 +117,7 @@ CGFloat contentFontSize = normalFont;
 {
     _model = model;
     nameLbl.text = model.nameStr;
-    headerImg.image = image(model.headerImg);
+    headerImg.image = Image(model.headerImg);
     contentLbl.text = model.contentStr;
     if (model.isShowMoreBtn) {
         //如果content高度>contentHeight则显示moreBtn

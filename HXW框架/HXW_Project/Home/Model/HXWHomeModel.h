@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface HXWHomeModel : NSObject
-
+@property (nonatomic, strong) NSString *aka;
+@property (nonatomic, strong) NSString *alt;
 @end

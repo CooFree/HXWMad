@@ -7,14 +7,11 @@
 //
 
 #import "HXWMessageViewController.h"
-#import "HXWPerson.h"
-#import <objc/runtime.h>
 #import "HXWChatCell.h"
 #import "HXWChatModel.h"
 #import "SDAnalogDataGenerator.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 
-typedef void (*_VIMP) (id, SEL, ...);
 
 @interface HXWMessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -33,29 +30,10 @@ typedef void (*_VIMP) (id, SEL, ...);
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    HXWPerson *person = [[HXWPerson alloc]init];
-//    [person performSelector:@selector(cry)];
-//    [person performSelector:@selector(sayHello)];
-//    [person replaceMethod];
-//    [person performSelector:@selector(sayHello)];
-//    objc_msgSend(person, @selector(sayUnDefine));
-//
-//    person.name = @"huaxiaowei";
-//    person.age = @"25";
-//    person.address = @"shanghai";
-//    [person modelFromDic:@{@"name":@"hxw",@"age":@"25",@"address":@"shanghai"}];
-//    HXWLog(@"%@,%@,%@",person.name,person.age,person.address);
-//    
-//    NSDictionary *dic = [person dicFromModel];
-//    HXWLog(@"%@",dic);
-//        for (NSString *name in dic.allKeys) {
-//            HXWLog(@"propertyName : %@, propertyValue : %@",name,dic[name]);
-//        }
-    
-    [self.tableview registerClass:[HXWChatCell class] forCellReuseIdentifier:HXWChatCellIdentifier];
-    itemAry = [[NSMutableArray alloc]init];
-    [self addRefresh];
-    [self beginRefesh];
+//    [self.tableview registerClass:[HXWChatCell class] forCellReuseIdentifier:HXWChatCellIdentifier];
+//    itemAry = [[NSMutableArray alloc]init];
+//    [self addRefresh];
+//    [self beginRefesh];
 }
 
 -(void)refresh{

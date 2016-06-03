@@ -37,16 +37,21 @@
 
 -(void)dismiss:(NSNotification *)notification
 {
-    if (_completionBlock) {
-        _completionBlock(notification.userInfo);
+    HXWLog(@"接受者当前线程是 ：%@",[NSThread currentThread]);
+    @synchronized(self) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_completionBlock) {
+                _completionBlock(notification.userInfo);
+            }
+            [UIView animateWithDuration:0.3f animations:^{
+                self.alpha = 0.f;
+                self.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
+            } completion:^(BOOL finished) {
+                [[NSNotificationCenter defaultCenter]removeObserver:self];
+                [self removeFromSuperview];
+            }];
+        });
     }
-    [UIView animateWithDuration:0.3f animations:^{
-        self.alpha = 0.f;
-        self.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
-    } completion:^(BOOL finished) {
-        [[NSNotificationCenter defaultCenter]removeObserver:self];
-        [self removeFromSuperview];
-    }];
 }
 
 +(HXWPopOverView *)showPopOverView:(UIView *)contentView

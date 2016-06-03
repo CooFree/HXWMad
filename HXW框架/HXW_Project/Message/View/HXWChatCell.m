@@ -51,8 +51,8 @@
     messageLbl.text = chatModel.message;
     CGFloat messageHeight = CalcArticleHeight([UIFont systemFontOfSize:14], chatModel.message, messageWidth);
 
-    messageImgV.image = image(chatModel.imgStr);
-    iconImgV.image = image(chatModel.iconStr);
+    messageImgV.image = Image(chatModel.imgStr);
+    iconImgV.image = Image(chatModel.iconStr);
 
     CGFloat width = 0.0;
     CGFloat height = 0.0;
@@ -77,7 +77,7 @@
     }
     //消息类型为接收
     if ([chatModel.msgType isEqualToString:@"receive"]) {
-        backImgV.image = [image(@"SenderTextNodeBkg") stretchableImageWithLeftCapWidth:30 topCapHeight:50];
+        backImgV.image = [Image(@"SenderTextNodeBkg") stretchableImageWithLeftCapWidth:30 topCapHeight:50];
         backImgV.contentMode = UIViewContentModeScaleToFill;
         [iconImgV mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(chatPadding);
@@ -120,7 +120,7 @@
     //消息类型为发送
     else
     {
-        backImgV.image = [image(@"ReceiverTextNodeBkgHL")stretchableImageWithLeftCapWidth:30 topCapHeight:50];
+        backImgV.image = [Image(@"ReceiverTextNodeBkgHL")stretchableImageWithLeftCapWidth:30 topCapHeight:50];
         backImgV.contentMode = UIViewContentModeScaleToFill;
 
         [iconImgV mas_remakeConstraints:^(MASConstraintMaker *make) {

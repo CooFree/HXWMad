@@ -16,7 +16,7 @@
 -(id)init
 {
     if (self = [super init]) {
-        titleAry = @[@"发起群聊",@"添加朋友",@"扫一扫",@"收付款"];
+        titleAry = @[@"折线图",@"扇形图",@"柱状图"];
         [self initialSet];
     }
     return self;
@@ -48,7 +48,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return titleAry.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -74,8 +74,13 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [HXWNotificationCenter postNotificationName:@"NotificationMsg_HXWPopOverViewDisMiss" object:nil];
-    [HXWNotificationCenter postNotificationName:@"HXWHomeViewController" object:nil];
+    dispatch_queue_t serialQueue = dispatch_queue_create("serialQueue", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(serialQueue, ^{
+        [HXWNotificationCenter postNotificationName:@"NotificationMsg_HXWPopOverViewDisMiss" object:nil];
+        HXWLog(@"当前线程是 ：%@",[NSThread currentThread]);
+    });
+    
+    [HXWNotificationCenter postNotificationName:@"HXWHomeViewController" object:nil userInfo:@{@"type":[NSString stringWithFormat:@"%ld",(long)indexPath.row]}];
 }
 
 @end

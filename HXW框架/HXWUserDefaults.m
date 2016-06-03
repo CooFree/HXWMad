@@ -7,38 +7,40 @@
 //
 
 #import "HXWUserDefaults.h"
-static HXWUserDefaults *userDefaultsInstance = nil;
 
 @implementation HXWUserDefaults
 {
     NSUserDefaults *defaults;
     NSDictionary* plistInfo;
 }
-//+(HXWUserDefaults *)instance
-//{
-//    static dispatch_once_t *onces;
-//    dispatch_once(onces, ^{
-//        userDefaultsInstance = [[HXWUserDefaults alloc]init];
-//    });
-//    return userDefaultsInstance;
-//}
 
 +(HXWUserDefaults *)instance
 {
-    //@synchronized 的作用是创建一个互斥锁，保证此时没有其它线程对self对象进行修改。
-    @synchronized(self) {
-        if (userDefaultsInstance == nil) {
-            userDefaultsInstance = [[self alloc] init];
-        }
-    }
+    static HXWUserDefaults *userDefaultsInstance = nil;
+    static dispatch_once_t onces;
+    dispatch_once(&onces, ^{
+        userDefaultsInstance = [[HXWUserDefaults alloc]init];
+    });
     return userDefaultsInstance;
 }
+
+//
+//+(HXWUserDefaults *)instance
+//{
+//    //@synchronized 的作用是创建一个互斥锁，保证此时没有其它线程对self对象进行修改。
+//    @synchronized(self) {
+//        if (userDefaultsInstance == nil) {
+//            userDefaultsInstance = [[self alloc] init];
+//        }
+//    }
+//    return userDefaultsInstance;
+//}
 
 -(id)init
 {
     if (self = [super init]) {
         defaults = [NSUserDefaults standardUserDefaults];
-        plistInfo = [NSDictionary dictionaryWithContentsOfFile:resourcePath(@"Info.plist")];
+        plistInfo = [NSDictionary dictionaryWithContentsOfFile:ResourcePath(@"Info.plist")];
     }
     return self;
 }
@@ -54,24 +56,24 @@ static HXWUserDefaults *userDefaultsInstance = nil;
     return [plistInfo objectForKey:@"CFBundleName"];
 }
 
--(void)setHxwName:(NSString *)hxwName
+-(void)setUserName:(NSString *)userName
 {
-    [defaults setObject:hxwName forKey:@"hxwName"];
+    [defaults setObject:userName forKey:@"userName"];
 }
 
--(NSString *)hxwName
+-(NSString *)userName
 {
-    return [defaults objectForKey:@"hxwName"];
+    return [defaults objectForKey:@"userName"];
 }
 
--(void)setHxwPw:(NSString *)hxwPw
+-(void)setUserPwd:(NSString *)userPwd
 {
-    [defaults setObject:hxwPw forKey:@"hxwPw"];
+    [defaults setObject:userPwd forKey:@"userPwd"];
 }
 
--(NSString *)hxwPw
+-(NSString *)userPwd
 {
-    return [defaults objectForKey:@"hxwPw"];
+    return [defaults objectForKey:@"userPwd"];
 }
 
 -(NSString *)headPic

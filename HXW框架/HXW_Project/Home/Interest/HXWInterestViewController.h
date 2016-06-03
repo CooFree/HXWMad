@@ -9,5 +9,5 @@
 #import "HXWViewController.h"
 
 @interface HXWInterestViewController : HXWViewController
-
+@property (nonatomic, strong) NSString *type;
 @end

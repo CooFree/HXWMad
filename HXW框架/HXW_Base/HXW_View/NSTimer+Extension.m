@@ -12,7 +12,7 @@
 
 -(void)pause
 {
-    //定时器是否有效
+    //定时器是否被释放了
     if (![self isValid]) {
         return ;
     }

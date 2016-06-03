@@ -7,22 +7,49 @@
 //
 
 #import "HXWAppDelegate.h"
+#import "HXWLoginViewController.h"
 #import "HXWTabbarViewController.h"
 
 @implementation HXWAppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //数据库设置
+    [self sqliteSetting];
+    //设置网络
+    [self remoteSetting];
     //全局设置
     [self totalSet];
+    //设置键盘
+    [self handleKeyBoard];
     //创建窗口
-    self.window = [[UIWindow alloc]init];
+    self.window = [[HXWWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
     self.window.backgroundColor = [UIColor whiteColor];
-    HXWTabbarViewController *tabbar = [[HXWTabbarViewController alloc]init];
-    self.window.rootViewController = tabbar;
+//    HXWLoginViewController *login = [[HXWLoginViewController alloc]init];
+    HXWTabbarViewController *login = [[HXWTabbarViewController alloc]init];
     //设置根控制器
+    self.window.rootViewController = login;
     //显示
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+-(void)sqliteSetting
+{
+    //拷贝初始化数据库，当沙盒中没有数据库时拷贝全路径中的数据库至沙盒路径所以当你想在数据库中添加表，要在ResourcePath(@"db.sqlite")路径下的数据库添加，并把沙盒中原来的数据库删除，另外数组类型不能添加到数据库中存储，只能多加一张表，用id标识
+    NSString* path = ConfigPath(@"db.sqlite");
+    if (!ExistAtPath(path)) {
+        NSString* contentFile = ResourcePath(@"db.sqlite");
+        NSData *data = [NSData dataWithContentsOfFile:contentFile];
+        SaveFile(path, data);
+    }
+    [DataFactory setDatabasePath:ConfigPath(nil)];
+}
+
+-(void)remoteSetting
+{
+    [HYBNetworking updateBaseUrl:@"http://192.168.10.20/nc_mobile_service"];
+    [HYBNetworking netWorkStatus];
+    [HYBNetworking enableInterfaceDebug:YES];
 }
 
 -(void)totalSet
@@ -30,6 +57,15 @@
     [UINavigationBar appearance].barTintColor = HXWColor(233, 116, 40);
 //    [UINavigationBar appearance].tintColor = HXWColor(238, 121, 66);
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:HXWColor(255, 255, 255)};
+}
+
+-(void)handleKeyBoard
+{
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES;
+    manager.shouldResignOnTouchOutside = YES;
+    manager.shouldToolbarUsesTextFieldTintColor = YES;
+    manager.enableAutoToolbar = NO;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -112,7 +112,8 @@
             _timerShow = nil;
         }
         _timerShow = [NSTimer scheduledTimerWithTimeInterval:0.03 target:self selector:@selector(animateNext:) userInfo:nil repeats:YES];
-        [_timerShow fire];
+        [[NSRunLoop currentRunLoop] addTimer:_timerShow forMode:NSRunLoopCommonModes];
+        //sh
     }
 }
 
@@ -300,5 +301,10 @@
     [itemView addGestureRecognizer:tap];
     [self.itemAry replaceObjectAtIndex:self.currentPage - 1 withObject:itemView];
     [self reFreshScrollViewWithContentOffset:YES];
+}
+
+-(void)dealloc
+{
+    [_timerShow invalidate];
 }
 @end

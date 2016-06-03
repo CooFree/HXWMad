@@ -7,6 +7,8 @@
 //
 
 #import "HXWMeViewController.h"
+#import "JSONKit.h"
+#import "HXWHomeModel.h"
 
 @interface HXWMeViewController ()
 @property (nonatomic, strong) UILabel *lbl;
@@ -15,24 +17,10 @@
 
 @implementation HXWMeViewController
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self timer];
-}
-
--(NSTimer *)timer
-{
-    if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeGo) userInfo:nil repeats:YES];
-    }
-    return _timer;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self timer];
     UILabel *lbl = [self createLblWithText:@"@我" Multi:NO];
     lbl.frame = self.view.bounds;
     //下面autoresizingMask和mas_makeConstraints效果是一样的让lbl自适应view的大小
@@ -41,14 +29,23 @@
     self.lbl = lbl;
     __weak typeof(self)Self = self;
 
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeUp) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
+    
+//    NSURL *url = [NSURL URLWithString:@"https://api.douban.com/v2/movie/subject/26279433"];
+//    NSString *jsonString =[NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+//    NSDictionary *dic = [jsonString objectFromJSONStringWithParseOptions:JKParseOptionLooseUnicode];
+//    HXWLog(@"json 数据为：%@",dic);
+//    HXWHomeModel *model = [HXWHomeModel objectWithKeyValues:dic];
+//    HXWLog(@"model 数据为：%@和%@",model.aka,model.alt);
     [lbl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(Self.view).insets(UIEdgeInsetsZero);
     }];
 }
 
--(void)timeGo
+-(void)timeUp
 {
-    self.lbl.text = [NSString stringWithFormat:@"%@",StringFromDate([NSDate date], @"yyyy-MM-dd-hh:mm:ss")];
+    self.lbl.text = StringFromDate([NSDate date], @"yy-MM-dd-hh-mm-ss");
 }
 
 -(UILabel *)createLblWithText:(NSString *)str Multi:(BOOL)multi
@@ -70,17 +67,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
-    //取消定时器
     [self.timer invalidate];
     self.timer = nil;
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end

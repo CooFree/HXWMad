@@ -8,6 +8,8 @@
 
 #import "HXWPhotoViewController.h"
 
+
+
 @interface HXWPhotoViewController ()
 
 @end
@@ -16,13 +18,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIImageView *imgV = [[UIImageView alloc]init];
-    imgV.image = [UIImage imageNamed:_imageName];
-    [self.view addSubview:imgV];
-    __weak typeof(self)Self = self;
-    [imgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(Self.view).insets(UIEdgeInsetsZero);
-    }];
+    self.view.backgroundColor = [ UIColor clearColor];
+    UILabel *idxLbl = [self createLblWithText:[NSString stringWithFormat:@"点击了第%ld页",(long)self.index] Multi:NO];
+    [self.view addSubview:idxLbl];
+    idxLbl.frame = CGRectMake(0, 0, self.view.width, 400);
 }
+
+-(UILabel *)createLblWithText:(NSString *)str Multi:(BOOL)multi
+{
+    UILabel *lbl = [[UILabel alloc]init];
+    lbl.textAlignment = NSTextAlignmentCenter;
+    lbl.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    lbl.layer.borderWidth = 1;
+    lbl.layer.cornerRadius = 4;
+    lbl.font = [UIFont systemFontOfSize:30];
+    lbl.text = str;
+    lbl.textColor = [UIColor blackColor];
+    if (multi) {
+        lbl.numberOfLines = 0;
+        lbl.lineBreakMode = NSLineBreakByWordWrapping;
+    }
+    return lbl;
+}
+
 
 @end

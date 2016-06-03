@@ -18,6 +18,7 @@
 #import "HXWTopicViewController.h"
 #import "HXWModelWindow.h"
 #import "HXWPhotoViewController.h"
+#import "HXWLoginViewController.h"
 
 @interface HXWHomeViewController ()<HXWCycleViewDelegate>
 @property (nonatomic, strong) HXWCycleView *cycleV;
@@ -29,6 +30,7 @@
 -(void)receiveNotification:(NSNotification *)noti
 {
     HXWInterestViewController *interCrl = [[HXWInterestViewController alloc]init];
+    interCrl.type = noti.userInfo[@"type"];
     [self.navigationController pushViewController:interCrl animated:YES];
 }
 
@@ -40,14 +42,15 @@
     [self.tableview registerClass:[HXWHomeCell class] forCellReuseIdentifier:HXWHomeCellIdentification];
     [self addRefresh];
     [self setleftBtn];
+    [self setRightBtn];
 }
 
 -(void)setleftBtn
 {
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightBtn addTarget:self action:@selector(dropMenu:) forControlEvents:UIControlEventTouchUpInside];
-    [rightBtn setImage:image(@"timeline_icon_more") forState:UIControlStateNormal];
-    [rightBtn setImage:image(@"timeline_icon_more_highlighted") forState:UIControlStateHighlighted];
+    [rightBtn setImage:Image(@"timeline_icon_more") forState:UIControlStateNormal];
+    [rightBtn setImage:Image(@"timeline_icon_more_highlighted") forState:UIControlStateHighlighted];
     [rightBtn setTitle:@"浦东新区" forState:UIControlStateNormal];
     [rightBtn setImageEdgeInsets:UIEdgeInsetsMake(7.5, 10, 7.5, 0)];
     rightBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;//内容左对齐,效果不明显
@@ -56,6 +59,22 @@
     rightBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     rightBtn.size = CGSizeMake(100, 30);
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+}
+
+-(void)setRightBtn
+{
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightBtn addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setImage:Image(@"tabbar_profile") forState:UIControlStateNormal];
+    [rightBtn setImage:Image(@"tabbar_profile_selected") forState:UIControlStateSelected];
+    rightBtn.size = CGSizeMake(30, 30);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+}
+
+-(void)login:(UIButton *)btn
+{
+    HXWLoginViewController *login = [[HXWLoginViewController alloc]init];
+    self.rootViewController = login;
 }
 
 -(void)dropMenu:(UIButton *)btn
@@ -88,7 +107,7 @@
 -(UIView *)viewForPageInCycleView:(HXWCycleView *)hxwCycleView atIndex:(NSInteger)index
 {
     UIImageView *imgV = [[UIImageView alloc]init];
-    imgV.image = image(self.picAry[index]);
+    imgV.image = Image(self.picAry[index]);
     imgV.backgroundColor = HXWRandomColor;
     return imgV;
 }
@@ -97,16 +116,15 @@
 -(void)deSelectPageInCycleView:(HXWCycleView *)hxwCycleView atIndex:(NSInteger)index
 {
     HXWLog(@"点击了第%ld张",index);
-    
     HXWPhotoViewController *photoV = [[HXWPhotoViewController alloc]init];
-    photoV.imageName = self.picAry[index - 1];
+    photoV.index = index;
     ModelWindowConfig *config = [[ModelWindowConfig alloc]init];
-    config.headerInterval = 200;
-    config.modelWidth = self.view.frame.size.width;
+    config.headerInterval = (self.view.height - 400)/2;
+    config.modelWidth = self.view.width;
     config.rightInterval = 0;
-    config.footerInterval = 200;
+    config.footerInterval = (self.view.height - 400)/2;
     config.cornerRadius = 2;
-    config.direction = HXWModelWindowDirection_Down;
+    config.direction = HXWModelWindowDirection_Up;
     //    config.imgVBKImage = [NSString stringWithFormat:@"syz.jpg"];
     [HXWModelWindow setModelConfig:config];
     [HXWModelWindow showModelWindow:photoV touchedDismiss:YES confirmBlock:nil cancelBlock:^(id data) {

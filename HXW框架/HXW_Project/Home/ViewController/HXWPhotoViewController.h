@@ -9,5 +9,5 @@
 #import "HXWViewController.h"
 
 @interface HXWPhotoViewController : HXWViewController
-@property (nonatomic, strong) NSString *imageName;
+@property (nonatomic, assign) NSInteger index;
 @end

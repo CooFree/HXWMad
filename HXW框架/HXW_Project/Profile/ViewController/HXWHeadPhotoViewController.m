@@ -26,7 +26,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     headerPhoto = [[UIImageView alloc]init];
-    headerPhoto.image = image(self.imgName);
+    headerPhoto.image = Image(self.imgName);
     headerPhoto.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:headerPhoto];
     __weak typeof(self)HXW = self;
@@ -46,8 +46,8 @@
 {
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightBtn addTarget:self action:@selector(showPicker) forControlEvents:UIControlEventTouchUpInside];
-    [rightBtn setBackgroundImage:image(@"navigationbar_more") forState:UIControlStateNormal];
-    [rightBtn setBackgroundImage:image(@"navigationbar_more_highlighted") forState:UIControlStateHighlighted];
+    [rightBtn setBackgroundImage:Image(@"navigationbar_more") forState:UIControlStateNormal];
+    [rightBtn setBackgroundImage:Image(@"navigationbar_more_highlighted") forState:UIControlStateHighlighted];
     rightBtn.size = rightBtn.currentBackgroundImage.size;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
 }
@@ -109,12 +109,12 @@
     if ([mediaType isEqualToString:@"public.image"]){
         //处理完后的图片保存到临时文件夹
         //            UIImage* image = scaleAndRotateImage([infos objectForKey:@"UIImagePickerControllerOriginalImage"]);
-        UIImage* image = thumbnailWithImage([info objectForKey:@"UIImagePickerControllerOriginalImage"], CGSizeMake(500, 500));
+        UIImage* image = ThumbnailWithImage([info objectForKey:@"UIImagePickerControllerOriginalImage"], CGSizeMake(500, 500));
         
         NSString* fileName = StringFromDate([NSDate date], @"yyyyMMddHHmmss");
         fileName = [NSString stringWithFormat:@"%@.jpg", fileName];
         [HXWUserDefaults instance].headPic = fileName;
-        [UIImageJPEGRepresentation(image, 0.1) writeToFile:[cachePath(@"picCache") stringByAppendingPathComponent:fileName] atomically:NO];
+        [UIImageJPEGRepresentation(image, 0.1) writeToFile:[CachePath(@"picCache") stringByAppendingPathComponent:fileName] atomically:NO];
     }
 }
 
@@ -124,7 +124,7 @@
 {
     [picker dismissViewControllerAnimated:YES completion:^{
         [HXWNotificationCenter postNotificationName:@"HXWProfileViewController" object:nil];
-        headerPhoto.image = image([cachePath(@"picCache") stringByAppendingPathComponent:[HXWUserDefaults instance].headPic]);
+        headerPhoto.image = Image([CachePath(@"picCache") stringByAppendingPathComponent:[HXWUserDefaults instance].headPic]);
     }];
 }
 

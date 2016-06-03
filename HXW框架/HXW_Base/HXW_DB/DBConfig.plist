@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>db.sqlite</key>
+	<array>
+		<dict>
+			<key>remark</key>
+			<string>用户登入信息列表</string>
+			<key>tableName</key>
+			<string>loginTimePointList</string>
+			<key>modelName</key>
+			<string>HXWLoginTimePoint</string>
+			<key>primaryKey</key>
+			<string>timePointId</string>
+		</dict>
+		<dict>
+			<key>remark</key>
+			<string>用户列表</string>
+			<key>tableName</key>
+			<string>userList</string>
+			<key>modelName</key>
+			<string>HXWUserModel</string>
+			<key>primaryKey</key>
+			<string>userId</string>
+		</dict>
+	</array>
+</dict>
+</plist>

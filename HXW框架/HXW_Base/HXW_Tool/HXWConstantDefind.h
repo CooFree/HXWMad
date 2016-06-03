@@ -31,3 +31,5 @@
 
 // 随机色
 #define HXWRandomColor HXWColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+//监控屏幕周期
+#define TouchEventMonitorTime 10000000

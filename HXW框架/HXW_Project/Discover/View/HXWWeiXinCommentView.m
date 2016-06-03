@@ -113,7 +113,7 @@
 {
     //一开始初始化背景和label数组
     bgView = [[UIImageView alloc]init];
-    bgView.image = [image(@"LikeCmtBg") stretchableImageWithLeftCapWidth:40 topCapHeight:30];
+    bgView.image = [Image(@"LikeCmtBg") stretchableImageWithLeftCapWidth:40 topCapHeight:30];
     [self addSubview:bgView];
     __weak typeof(self)HXW = self;
     [bgView mas_makeConstraints:^(MASConstraintMaker *make) {

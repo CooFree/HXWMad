@@ -123,7 +123,7 @@
                 make.leading.mas_equalTo(padding);
             }];
         }
-        cell.imageView.image = thumbnailWithImage(image(imgAry[indexPath.row]), CGSizeMake(160, 160));
+        cell.imageView.image = ThumbnailWithImage(Image(imgAry[indexPath.row]), CGSizeMake(160, 160));
         cell.textLabel.text = titleAry[indexPath.row];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
@@ -138,8 +138,8 @@
         make.leading.mas_equalTo(0);
     }];
     cell.titleLbl.text = @"江阴影魔";
-    cell.picView.image = image([cachePath(@"picCache") stringByAppendingPathComponent:[HXWUserDefaults instance].headPic]);
-    cell.codeView.image = image(@"code");
+    cell.picView.image = Image([CachePath(@"picCache") stringByAppendingPathComponent:[HXWUserDefaults instance].headPic]);
+    cell.codeView.image = Image(@"code");
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
@@ -149,7 +149,7 @@
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后取消选中
     if (indexPath.row == 0) {
         HXWHeadPhotoViewController *headerCrl = [[HXWHeadPhotoViewController alloc]initWithMsgKey:@"HXWHeadPhotoViewController"];
-        headerCrl.imgName = [cachePath(@"picCache") stringByAppendingPathComponent:[HXWUserDefaults instance].headPic];
+        headerCrl.imgName = [CachePath(@"picCache") stringByAppendingPathComponent:[HXWUserDefaults instance].headPic];
         [self.navigationController pushViewController:headerCrl animated:YES];
     }
 }
