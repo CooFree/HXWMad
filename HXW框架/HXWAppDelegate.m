@@ -9,7 +9,7 @@
 #import "HXWAppDelegate.h"
 #import "HXWLoginViewController.h"
 #import "HXWTabbarViewController.h"
-
+/*测试*/
 @implementation HXWAppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //数据库设置
