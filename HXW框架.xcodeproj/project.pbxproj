@@ -46,6 +46,8 @@
 		BD5CEB611C9AA5B5008065E8 /* HXWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5CEB601C9AA5B5008065E8 /* HXWViewController.m */; };
 		BD5D54671CA376E700ECFC3E /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5D54661CA376E700ECFC3E /* NSTimer+Extension.m */; };
 		BD643DFC1CACBB5D005F4CA5 /* HXWCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD643DFB1CACBB5D005F4CA5 /* HXWCycleView.m */; };
+		BD72AC1D1D05138F0000C345 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD72AC1C1D05138F0000C345 /* CoreData.framework */; };
+		BD72AC211D0514D40000C345 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD72AC1F1D0514D40000C345 /* CoreDataModel.xcdatamodeld */; };
 		BD84D0FC1CAD27F900A49DE2 /* HXWDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84D0FB1CAD27F900A49DE2 /* HXWDropView.m */; };
 		BD89CA851CA0D6290015969C /* HXWCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD89CA841CA0D6290015969C /* HXWCenterViewController.m */; };
 		BD89CA8A1CA0DED60015969C /* HXWInterestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD89CA891CA0DED60015969C /* HXWInterestViewController.m */; };
@@ -196,6 +198,8 @@
 		BD5D54661CA376E700ECFC3E /* NSTimer+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Extension.m"; sourceTree = "<group>"; };
 		BD643DFA1CACBB5D005F4CA5 /* HXWCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXWCycleView.h; sourceTree = "<group>"; };
 		BD643DFB1CACBB5D005F4CA5 /* HXWCycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXWCycleView.m; sourceTree = "<group>"; };
+		BD72AC1C1D05138F0000C345 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BD72AC201D0514D40000C345 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		BD84D0FA1CAD27F900A49DE2 /* HXWDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXWDropView.h; sourceTree = "<group>"; };
 		BD84D0FB1CAD27F900A49DE2 /* HXWDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXWDropView.m; sourceTree = "<group>"; };
 		BD89CA831CA0D6290015969C /* HXWCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXWCenterViewController.h; sourceTree = "<group>"; };
@@ -294,6 +298,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD72AC1D1D05138F0000C345 /* CoreData.framework in Frameworks */,
 				BDEDC2FA1CF6D5E00069FF28 /* libsqlite3.tbd in Frameworks */,
 				BDEDC2F61CF6A0800069FF28 /* FMDatabase.framework in Frameworks */,
 				3667A985C4ECBC38E5E79F1B /* libPods-HXW框架.a in Frameworks */,
@@ -329,6 +334,7 @@
 		58C789A45E3EA70C752F5F81 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BD72AC1C1D05138F0000C345 /* CoreData.framework */,
 				BDEDC2F91CF6D5E00069FF28 /* libsqlite3.tbd */,
 				02709260DA219CCC99AF37D7 /* libPods-HXW框架.a */,
 			);
@@ -581,6 +587,7 @@
 		BD5CEB581C9AA4BB008065E8 /* HXW_Base<基本工具> */ = {
 			isa = PBXGroup;
 			children = (
+				BD72AC1E1D0514720000C345 /* HXW_CoreData<CoreData数据库> */,
 				BD5CEB591C9AA4BB008065E8 /* HXW_AFN<网络> */,
 				BD5CEB5B1C9AA4BB008065E8 /* HXW_DB<数据库> */,
 				BD5CEB5A1C9AA4BB008065E8 /* HXW_Controller<自定义控制器> */,
@@ -706,6 +713,14 @@
 			);
 			name = "HXW_Project<项目工程>";
 			path = HXW_Project;
+			sourceTree = "<group>";
+		};
+		BD72AC1E1D0514720000C345 /* HXW_CoreData<CoreData数据库> */ = {
+			isa = PBXGroup;
+			children = (
+				BD72AC1F1D0514D40000C345 /* CoreDataModel.xcdatamodeld */,
+			);
+			name = "HXW_CoreData<CoreData数据库>";
 			sourceTree = "<group>";
 		};
 		BD89CA7F1CA0D5EA0015969C /* Center<中间按钮> */ = {
@@ -1030,6 +1045,7 @@
 				BD1762171C9FE51E000A00EB /* HYBNetworking.m in Sources */,
 				BD1DAB301CC878E400AD07C3 /* HXWChatCell.m in Sources */,
 				BDAB603C1CB3911400FDF582 /* HXWPic.m in Sources */,
+				BD72AC211D0514D40000C345 /* CoreDataModel.xcdatamodeld in Sources */,
 				BD5CEB611C9AA5B5008065E8 /* HXWViewController.m in Sources */,
 				BD2965001CA22AD200241412 /* CycleScrollView.m in Sources */,
 				BD89CA901CA0DF2B0015969C /* HXWTopicViewController.m in Sources */,
@@ -1327,6 +1343,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BD72AC1F1D0514D40000C345 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BD72AC201D0514D40000C345 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = BD72AC201D0514D40000C345 /* CoreDataModel.xcdatamodel */;
+			name = CoreDataModel.xcdatamodeld;
+			path = HXW_CoreData/CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BD5CEB131C9AA148008065E8 /* Project object */;
 }
